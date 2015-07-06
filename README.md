@@ -1,5 +1,5 @@
 
-`proto`
+`odiff`
 =====
 
 A value difference generator that can generate a list of difference between one javascript value and another. It recursively finds differences
