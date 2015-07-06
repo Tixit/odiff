@@ -73,7 +73,7 @@ Using odiff:
 build such that you can pick and choose what changes to do, and as long as you do them (selectively) in order, the changes will work properly.
 Each element in the resulting array has the following members:
 * `type` - Either `"set"`, `"add"`,  or `"rm"`
-* `path` - An array representing the path from the root object. For example, `["a",2,"b]` represents `valueA.a[2].b`. Will be an empty
+* `path` - An array representing the path from the root object. For example, `["a",2,"b"]` represents `valueA.a[2].b`. Will be an empty
 array if the change applies to the top-level object (ie `valueA` directly).
 * `val` - The value the indicated property was changed to. Only defined for the `"set"` type.
 * `index` - The index at which an item was added or removed from an array. Only defined for the `"add"` and `"rm"` types.
