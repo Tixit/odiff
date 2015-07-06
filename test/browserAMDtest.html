@@ -1,0 +1,18 @@
+<!-- NOTE: this won't work without being served from a server -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.16/require.min.js'></script>
+
+<script>
+    "use strict";
+
+    require.config({
+        paths: {
+            "odiff": '../dist/odiff.umd'
+        }
+    })
+
+    require(['odiff'], function(odiff) {
+        var result = odiff([1,2,{a:1,b:2}], [1,2, 3,{a:2,b:2}])
+        console.log("Result is an array right? "+(result instanceof Array))
+    })
+
+</script>
