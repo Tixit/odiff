@@ -7,8 +7,6 @@ require("../build") // build every you test so you don't forget to update the bu
 
 Unit.test("Testing odiff", function() {
 
-
-
     //*
 
     this.test("simple value test", function() {
@@ -366,6 +364,27 @@ Unit.test("Testing odiff", function() {
         this.ok(odiff.equal(d.path, ['y','aa']), d.path, ['y','aa'])
         this.eq(d.index, 1)
         this.ok(odiff.equal(d.vals, [[9,8]]))
+    })
+
+    this.test("former bugs", function() {
+        this.test('missing diff', function() {
+            var a = {b:[1,{x:'y',e:1}   ]}
+            var b = {b:[1,{x:'z',e:1}, 5]}
+
+            var diffs = odiff(a,b)
+            this.eq(diffs.length, 2)
+
+            var d = diffs[0]
+            this.eq(d.type, 'add')
+            this.ok(odiff.equal(d.path, ['b']), d.path, ['b'])
+            this.eq(d.index, 2)
+            this.ok(odiff.equal(d.vals, [5]), d.vals, [5])
+
+            d = diffs[1]
+            this.eq(d.type, 'set')
+            this.ok(odiff.equal(d.path, ['b',1,'x']), d.path, ['b',1,'x'])
+            this.eq(d.val, 'z')
+        })
     })
 
     /*   nah, lets not do filters in this since you can always filter when looping through the changes

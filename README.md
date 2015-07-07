@@ -102,6 +102,7 @@ reversing the order in which array changes are listed.
 * Strings and numbers are treated as atomic primitives - if a string changes one character, that whole value will be written in the `value`
 key of the change item.
 * NaN is treated as equal to itself for the purposes of this difference.
+* Objects with circular references aren't supported (yet)
 
 Design Decisions
 ================
@@ -110,6 +111,12 @@ Design Decisions
 
 * The JSON Pointer format uses weird escape codes, I assume because doing that saves a couple bytes here and there
 * The remove item can't specify a count, so if you remove a big sequence from an array, you get a ton of little removal events (strange since this totally negates the bytes saved by JSON Pointer)
+
+Todo
+======
+
+* Use [object-traverse](https://github.com/nervgh/object-traverse) to refactor - mostly because it supports circular reference detection
+
 
 How to Contribute!
 ============
@@ -135,6 +142,7 @@ How to submit pull requests:
 Change Log
 =========
 
+* 0.0.2 - fixing bug related to isNaN being garbage
 * 0.0.1 - first commit!
 
 License

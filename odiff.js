@@ -207,7 +207,7 @@ function similar(a,b) {
         return true
 
     } else {
-        return a===b || isNaN(a) && isNaN(b)
+        return a===b || Number.isNaN(a) && Number.isNaN(b)
     }
 }
 
@@ -250,7 +250,7 @@ function equal(a,b) {
             return true
         }
     } else {
-        return a===b || isNaN(a) && isNaN(b)
+        return a===b || Number.isNaN(a) && Number.isNaN(b)
     }
 }
 
