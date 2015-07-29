@@ -83,6 +83,7 @@ array if the change applies to the top-level object (ie `valueA` directly).
 Odiff also exposes two functions used internally:
 
 `odiff.equal(a,b)` - Returns true if the two values are equal, false otherwise. `NaN` is treated as equal to itself.
+
 `odiff.similar(a,b)` - Returns true if the two values are similar, false otherwise. "Similar" is defined as having less than two shallow
 inner values different (as long as not 100% of the values are different) or having fewer than 10% of its shallow values different.
 `NaN` is treated as equal to itself.
