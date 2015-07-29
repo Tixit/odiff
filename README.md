@@ -2,7 +2,7 @@
 `odiff`
 =====
 
-A value difference generator that can generate a list of difference between one javascript value and another. It recursively finds differences
+A value difference generator that can generate a list of differences between one javascript value and another. It recursively finds differences
 within arrays and objects.
 
 Example
@@ -27,7 +27,7 @@ Motivation
 
 This differencing algorithm is intended to make object differences easy to manage when you need to update an object in a way other
 than simply copying the reference. An example is if you need to create a database query to update a record based on the changes between
-two objects.
+two objects. It also works in a basic way on primitives (no string differencing tho).
 
 While this algorithm puts in some effort to make the number of change records minimal, it by no means generates an absolutely minimal set
 of changes. It also doesn't handle compressing string differences in any way. For these reasons, this algorithm is not ideal for use in
