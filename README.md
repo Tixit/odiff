@@ -36,10 +36,9 @@ sending changes over the wire, especially if your data contains lots of small ch
 Other algorithms I found either had undesirable behavior when dealing with array inserts
 ( [flitbit/diff](https://github.com/flitbit/diff), [cosmicanant/recursive-diff](https://github.com/cosmicanant/recursive-diff),
 [ackrause/ObjectCompare](https://github.com/ackrause/ObjectCompare), [thomseddon/docdiff](https://github.com/thomseddon/docdiff) ),
-had weird difference formats, didn't describe their behavior at all ( [aogriffiths/jsondiff-js](https://github.com/aogriffiths/jsondiff-js),
+had weird nested difference formats that make things harder ( [NV/objectDiff.js](https://github.com/NV/objectDiff.js) ), didn't describe their behavior at all ( [aogriffiths/jsondiff-js](https://github.com/aogriffiths/jsondiff-js),
 [benjamine/JsonDiffPatch](https://github.com/benjamine/JsonDiffPatch) ), or all three.
-Some only work on objects (not arrays) ( [Evaw/objectDiff](https://github.com/Evaw/objectDiff), [omgaz/js-diff](https://github.com/omgaz/js-diff) ).
-And some have weird nested formats that make things harder ( [NV/objectDiff.js](https://github.com/NV/objectDiff.js) ).
+Also some only work on objects (not arrays) ( [Evaw/objectDiff](https://github.com/Evaw/objectDiff), [omgaz/js-diff](https://github.com/omgaz/js-diff) ).
 
 Install
 =======
