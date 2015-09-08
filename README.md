@@ -94,8 +94,7 @@ The differencing algorithm is intended to run well on values that are pretty sim
 string of 'set' change items
 * If an array element is changed only a little bit, a sequence of change items is generated to change that element. A "little bit"
 is defined as less than two shallow inner values being changed or fewer than 10% of its shallow values being changed.
-* If an array element is changed a lot (defined as the opposite of "a little bit" above), a single change items will be generated to reset
-that complex value. This is intended as a trade off between number of changes and "size" of each change.
+* If an array element is changed a lot (defined as the opposite of "a little bit" above), a single change item will be generated to reset that complex value. This is intended as a trade off between number of changes and "size" of each change.
 * The change items are ordered such that if you apply the changes as written to `valueA` in order, you will get `valueB`. It does this by
 reversing the order in which array changes are listed.
 * The 3 types of values the algorithm recognizes are Objects, Arrays, and atomic primitives. Only Objects and Arrays are recursively analyzed.
