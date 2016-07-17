@@ -68,7 +68,7 @@ odiff; // odiff.umd.js can define odiff globally if you really
 
 Using odiff:
 
-***`odiff(valueA, valueB)`*** - Returns an array of changes that, when applied to valueA, will turn that value into valueB. The results are also
+**`odiff(valueA, valueB)`** - Returns an array of changes that, when applied to valueA, will turn that value into valueB. The results are also
 build such that you can pick and choose what changes to do, and as long as you do them (selectively) in order, the changes will work properly.
 Each element in the resulting array has the following members:
 * `type` - Either `"set"`, `"add"`,  or `"rm"`
@@ -81,9 +81,9 @@ array if the change applies to the top-level object (ie `valueA` directly).
 
 Odiff also exposes two functions used internally:
 
-***`odiff.equal(a,b)`*** - Returns true if the two values are equal, false otherwise. `NaN` is treated as equal to itself.
+**`odiff.equal(a,b)`** - Returns true if the two values are equal, false otherwise. `NaN` is treated as equal to itself.
 
-***`odiff.similar(a,b)`*** - Returns true if the two values are similar, false otherwise. "Similar" is defined as having less than two shallow
+**`odiff.similar(a,b)`** - Returns true if the two values are similar, false otherwise. "Similar" is defined as having less than two shallow
 inner values different (as long as not 100% of the values are different) or having fewer than 10% of its shallow values different.
 `NaN` is treated as equal to itself.
 
