@@ -80,7 +80,11 @@ var diffInternal = function(a,b,acc,base) {
         } else if(bn >= 0) { // more to push
             add(acc, base,0, b.slice(0, bn+1))
         }
-
+    
+    } else if(a instanceof Date && b instanceof Date) {
+        if(a.getTime() !== b.getTime()) {
+            set(acc, base, b);
+        }
     } else if(a instanceof Object && b instanceof Object) {
         var keyMap = merge(arrayToMap(Object.keys(a)), arrayToMap(Object.keys(b)))
         for(var key in keyMap) {
