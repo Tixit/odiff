@@ -12,7 +12,6 @@ Unit.test("Testing odiff", function() {
     this.test("simple value test", function() {
         var diffs = odiff(1,2)
         this.eq(diffs.length, 1)
-
         var d = diffs[0]
         this.eq(d.type, 'set')
         this.ok(odiff.equal(d.path, []), d.path, [])
@@ -35,9 +34,19 @@ Unit.test("Testing odiff", function() {
         this.eq(diffs.length, 0)
     })
 
+    this.test('simple object unset', function() {
+        var diffs = odiff({x:1},{})
+
+        this.eq(diffs.length, 1)
+        var d = diffs[0]
+
+        this.eq(d.type, 'unset')
+        this.ok(odiff.equal(d.path, ['x']), d.path, ['x'])
+    })
+
     this.test('simple object diff', function() {
         var a = {a: 1, b:2, c:3}
-        var b = {a: 1, b:2, d:3}
+        var b = {a: 1, b:2, c:undefined, d:3}
 
         var diffs = odiff(a,b)
 

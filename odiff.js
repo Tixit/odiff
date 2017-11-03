@@ -85,18 +85,30 @@ var diffInternal = function(a,b,acc,base) {
         var keyMap = merge(arrayToMap(Object.keys(a)), arrayToMap(Object.keys(b)))
         for(var key in keyMap) {
             var path = base.concat([key])
-            diffInternal(a[key],b[key],acc, path)
+            if(key in a && !(key in b)) {
+                unset(acc, path)
+            } else {
+                diffInternal(a[key],b[key],acc, path)
+            }
         }
     } else {
         set(acc, base, b)
     }
 
-    // adds an 'set' type to the changeList
+    // adds a 'set' type to the changeList
     function set(changeList, property, value) {
         changeList.push({
             type:'set',
             path: property,
             val: value
+        })
+    }
+
+    // adds an 'unset' type to the changeList
+    function unset(changeList, property) {
+        changeList.push({
+            type:'unset',
+            path: property
         })
     }
 

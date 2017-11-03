@@ -68,35 +68,30 @@ odiff; // odiff.umd.js can define odiff globally if you really
 
 Using odiff:
 
-**`odiff(valueA, valueB)`** - Returns an array of changes that, when applied to valueA, will turn that value into valueB. The results are also
-build such that you can pick and choose what changes to do, and as long as you do them (selectively) in order, the changes will work properly.
+**`odiff(valueA, valueB)`** - Returns an array of changes that, when applied to valueA, will turn that value into valueB. The results are also build such that you can pick and choose what changes to do, and as long as you do them (selectively) in order, the changes will work properly.
 Each element in the resulting array has the following members:
-* `type` - Either `"set"`, `"add"`,  or `"rm"`
-* `path` - An array representing the path from the root object. For example, `["a",2,"b"]` represents `valueA.a[2].b`. Will be an empty
-array if the change applies to the top-level object (ie `valueA` directly).
+* `type` - Either `"set"`, `"unset"`, `"add"`,  or `"rm"`
+* `path` - An array representing the path from the root object. For example, `["a",2,"b"]` represents `valueA.a[2].b`. Will be an empty array if the change applies to the top-level object (ie `valueA` directly).
 * `val` - The value the indicated property was changed to. Only defined for the `"set"` type.
 * `index` - The index at which an item was added or removed from an array. Only defined for the `"add"` and `"rm"` types.
-* `vals` - An array of values added into the indicated property. Only defined for the `"add"` type.
+* `vals` - An array of values added into the indiconly availableated property. Only defined for the `"add"` type.
 * `num` - The number of items removed from the indicated property. Only defined for the `"remove"` type.
 
 Odiff also exposes two functions used internally:
 
 **`odiff.equal(a,b)`** - Returns true if the two values are equal, false otherwise. `NaN` is treated as equal to itself.
 
-**`odiff.similar(a,b)`** - Returns true if the two values are similar, false otherwise. "Similar" is defined as having less than two shallow
-inner values different (as long as not 100% of the values are different) or having fewer than 10% of its shallow values different.
+**`odiff.similar(a,b)`** - Returns true if the two values are similar, false otherwise. "Similar" is defined as having less than two shallow inner values different (as long as not 100% of the values are different) or having fewer than 10% of its shallow values different.
 `NaN` is treated as equal to itself.
 
 ### Algorithm behavior
 
 The differencing algorithm is intended to run well on values that are pretty similar. Some properties of the algorithm:
-* If a value is inserted into or removed from the middle of an array, the algorithm should generate an 'add' change item, rather than a
-string of 'set' change items
+* If a value is inserted into or removed from the middle of an array, the algorithm should generate an 'add' change item, rather than a string of 'set' change items
 * If an array element is changed only a little bit, a sequence of change items is generated to change that element. A "little bit"
 is defined as less than two shallow inner values being changed or fewer than 10% of its shallow values being changed.
 * If an array element is changed a lot (defined as the opposite of "a little bit" above), a single change item will be generated to reset that complex value. This is intended as a trade off between number of changes and "size" of each change.
-* The change items are ordered such that if you apply the changes as written to `valueA` in order, you will get `valueB`. It does this by
-reversing the order in which array changes are listed.
+* The change items are ordered such that if you apply the changes as written to `valueA` in order, you will get `valueB`. It does this by reversing the order in which array changes are listed.
 * The 3 types of values the algorithm recognizes are Objects, Arrays, and atomic primitives. Only Objects and Arrays are recursively analyzed.
 * Strings and numbers are treated as atomic primitives - if a string changes one character, that whole value will be written in the `value`
 key of the change item.
@@ -141,6 +136,7 @@ How to submit pull requests:
 Change Log
 =========
 
+* 0.1.0 - Adding "unset" diff type (so undefined and unset keys can be distinguished)
 * 0.0.2 - fixing bug related to isNaN being garbage
 * 0.0.1 - first commit!
 
