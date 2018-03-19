@@ -117,7 +117,7 @@ var diffInternal = function(a,b,acc,base) {
         changeList.push({
             type:'rm',
             path: property,
-            index: index,
+            index: index ? index - count + 1 : 0,
             num: count
         })
     }

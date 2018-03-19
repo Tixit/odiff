@@ -75,6 +75,20 @@ Unit.test("Testing odiff", function() {
         this.eq(d.index, 0)
         this.eq(d.num, 3)
     })
+    this.test('simple array diff - rm multiple contiguous', function() {
+        var a = [1,2,3]
+        var b = [1]
+
+        var diffs = odiff(a,b)
+        this.eq(diffs.length, 1)
+
+        var d = diffs[0]
+        this.eq(d.type, 'rm')
+        this.eq(d.path.length, 0)
+        this.eq(d.index, 1)
+        this.eq(d.num, 2)
+    })
+ 
     this.test('simple array diff - add', function() {
         var a = []
         var b = [1,2,3]
