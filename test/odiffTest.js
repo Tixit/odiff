@@ -33,6 +33,15 @@ Unit.test("Testing odiff", function() {
         var diffs = odiff(a,b)
         this.eq(diffs.length, 0)
     })
+    this.test("Date test", function() {
+        var diffs = odiff(new Date('2016-08-11'), new Date('2017-09-12'))
+        this.eq(diffs.length, 1)
+
+        var d = diffs[0]
+        this.eq(d.type, 'set')
+        this.ok(odiff.equal(d.path, []), d.path, [])
+        this.eq(d.val.getTime(), new Date('2017-09-12').getTime())
+    })
 
     this.test('simple object unset', function() {
         var diffs = odiff({x:1},{})
