@@ -136,6 +136,7 @@ How to submit pull requests:
 Change Log
 =========
 
+* 1.0.0 - Fixing bug in `rm` where the index was previously the last index removed and changed to the index being the first item removed.
 * 0.1.0 - Adding "unset" diff type (so undefined and unset keys can be distinguished)
 * 0.0.2 - fixing bug related to isNaN being garbage
 * 0.0.1 - first commit!

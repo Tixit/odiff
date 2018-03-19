@@ -1,5 +1,5 @@
 {"name":"odiff",
- "version":"0.1.1",
+ "version":"1.0.0",
  "main":"odiff.js",
  "description": "Get a list of differences between one javascript value and another.",
  "keywords": [
