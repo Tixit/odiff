@@ -1,6 +1,6 @@
 interface odiffResult {
     type: "set" | "unset" | "add" | "rm";
-    path: (string | number)[];
+    path: Array<string | number>;
     val: any;
     index: number;
     vals: any[];
