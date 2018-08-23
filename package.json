@@ -1,6 +1,7 @@
 {"name":"odiff",
- "version":"1.1.0",
+ "version":"1.2.0",
  "main":"odiff.js",
+ "types": "odiff.d.ts",
  "description": "Get a list of differences between one javascript value and another.",
  "keywords": [
     "diff", "difference", "change", "changes", "track", "compare", "change-tracking", "patch", "jsonpatch",
