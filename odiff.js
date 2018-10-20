@@ -301,7 +301,7 @@ function apply(diff,data) {
         if (typeof cursor[lastPath] === 'undefined') {
             cursor[lastPath] = [];
         }
-        const cursorAsArray = cursor[lastPath] as any[];
+        const cursorAsArray = cursor[lastPath];
         cursor[lastPath] = cursorAsArray
             .slice(0, diff.index)
             .concat(diff.vals)
@@ -312,8 +312,8 @@ function apply(diff,data) {
         if (typeof cursor[lastPath] === 'undefined') {
             cursor[lastPath] = [];
         } else {
-            (cursor[lastPath] as any[]).splice(
-                diff.index as number,
+            cursor[lastPath].splice(
+                diff.index,
                 diff.rm.length,
             );
         }
