@@ -139,7 +139,7 @@ var diffInternal = function(a,b,acc,base) {
 
 module.exports.similar = similar
 module.exports.equal = equal
-module.exports.apply = apply
+module.exports.applyDiffs = applyDiffs
 
 
 // finds and returns the closest indexes in a and b that match starting with divergenceIndex
@@ -272,7 +272,7 @@ function equal(a,b) {
 }
 
 
-function apply(diff,data) {
+function applyDiffs(diff,data) {
     if (!diff || diff.path.length === 0) {
         return data;
     }

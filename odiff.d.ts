@@ -10,7 +10,7 @@ interface odiffResult {
 interface odiff {
     equal(a: any, b: any): boolean;
     similar(a: any, b: any): boolean;
-    apply(diff: odiffResult[], data: any): any;
+    applyDiffs(diff: odiffResult[], data: any): any;
 }
 
 declare function odiff(a: any, b: any): odiffResult[];
