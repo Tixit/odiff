@@ -292,13 +292,13 @@ function applySingle(diff,data) {
     var lastPath = diff.path[index];
     // Perform the diff operation
     switch (diff.type) {
-    case 'SET':
+    case 'set':
         cursor[lastPath] = diff.val;
         break;
-    case 'UNSET':
+    case 'unset':
         delete cursor[lastPath];
         break;
-    case 'ADD': {
+    case 'add': {
         if (typeof cursor[lastPath] === 'undefined') {
             cursor[lastPath] = [];
         }
@@ -309,7 +309,7 @@ function applySingle(diff,data) {
             .concat(cursorAsArray.slice(diff.index));
         break;
     }
-    case 'RM':
+    case 'rm':
         if (typeof cursor[lastPath] === 'undefined') {
             cursor[lastPath] = [];
         } else {
