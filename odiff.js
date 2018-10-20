@@ -139,7 +139,8 @@ var diffInternal = function(a,b,acc,base) {
 
 module.exports.similar = similar
 module.exports.equal = equal
-module.exports.applyDiffs = applyDiffs
+module.exports.applySingle = applySingle
+module.exports.applyAll = applyAll
 
 
 // finds and returns the closest indexes in a and b that match starting with divergenceIndex
@@ -272,7 +273,7 @@ function equal(a,b) {
 }
 
 
-function applyDiffs(diff,data) {
+function applySingle(diff,data) {
     if (!diff || diff.path.length === 0) {
         return data;
     }
@@ -320,6 +321,15 @@ function applyDiffs(diff,data) {
         break;
     default:
         throw new Error(`Unsupported diff operation: ${diff.type}`);
+    }
+    return result;
+}
+
+
+function applyAll(diffs,data) {
+    var result;
+    for (let index = 0; index < diffs.length; index++) {
+        result = applySingle(diffs[index], data);
     }
     return result;
 }
