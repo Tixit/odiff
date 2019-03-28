@@ -77,8 +77,7 @@ Each element in the resulting array has the following members:
 * `path` - An array representing the path from the root object. For example, `["a",2,"b"]` represents `valueA.a[2].b`. Will be an empty array if the change applies to the top-level object (ie `valueA` directly).
 * `val` - The value the indicated property was changed to. Only defined for the `"set"` type.
 * `index` - The index at which an item was added or removed from an array. Only defined for the `"add"` and `"rm"` types.
-* `vals` - An array of values added into the indiconly availableated property. Only defined for the `"add"` type.
-* `num` - The number of items removed from the indicated property. Only defined for the `"remove"` type.
+* `vals` - An array of values added into the indiconly availableated property. Only defined for the `"add"` and `"rm"` types.
 
 Odiff also exposes two functions used internally:
 
@@ -139,6 +138,7 @@ How to submit pull requests:
 Change Log
 =========
 
+* 1.3.0 - Added 'vals' to the 'rm' diff type. Also deprecated 'num'.
 * 1.2.0 - Adding support for typescript (typescript definition)
 * 1.1.0 - Adding support for Date object comparisons
 * 1.0.0 - Fixing bug in `rm` where the index was previously the last index removed and changed to the index being the first item removed.

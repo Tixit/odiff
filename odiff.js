@@ -43,14 +43,14 @@ var diffInternal = function(a,b,acc,base) {
                             set(acc, base.concat(indexesInner.a+1), b[indexesInner.b+1])
                         } else if(numberPulled === 2 && numberPushed === 1) {
                             // set one, pull the other
-                            rm(acc, base, indexesInner.a+2, 1)
+                            rm(acc, base, indexesInner.a+2, 1, a)
                             set(acc, base.concat(indexesInner.a+1), b[indexesInner.b+1])
                         } else if(numberPulled === 2 && numberPushed === 2) {
                             set(acc, base.concat(indexesInner.a+2), b[indexesInner.b+2])
                             set(acc, base.concat(indexesInner.a+1), b[indexesInner.b+1])
                         } else {
                             if(numberPulled > 0) { // if there were some elements pulled
-                                rm(acc, base, indexesInner.a+1, numberPulled)
+                                rm(acc, base, indexesInner.a+1, numberPulled, a)
                             }
                             if(numberPushed > 0) { // if there were some elements pushed
                                 add(acc, base,indexesInner.a+1, b.slice(indexesInner.b+1, bnInner+1))
@@ -63,7 +63,7 @@ var diffInternal = function(a,b,acc,base) {
                 }
 
                 if(anInner > indexes.a) {        // more to pull
-                    rm(acc, base, anInner, anInner-indexes.a)
+                    rm(acc, base, anInner, anInner-indexes.a, a)
                 } else if(bnInner > indexes.b) { // more to push
                     add(acc, base, anInner+1, b.slice(indexes.b+1, bnInner+1))
                 }
@@ -76,7 +76,7 @@ var diffInternal = function(a,b,acc,base) {
         }
 
         if(an >= 0) {        // more to pull
-            rm(acc, base, 0, an+1)
+            rm(acc, base, 0, an+1, a)
         } else if(bn >= 0) { // more to push
             add(acc, base,0, b.slice(0, bn+1))
         }
@@ -117,12 +117,14 @@ var diffInternal = function(a,b,acc,base) {
     }
 
     // adds an 'rm' type to the changeList
-    function rm(changeList, property, index, count) {
+    function rm(changeList, property, index, count, a) {
+        var finalIndex = index ? index - count + 1 : 0
         changeList.push({
             type:'rm',
             path: property,
-            index: index ? index - count + 1 : 0,
-            num: count
+            index: finalIndex,
+            num: count,
+            vals: a.slice(finalIndex, finalIndex+count)
         })
     }
 

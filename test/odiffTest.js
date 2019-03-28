@@ -83,6 +83,7 @@ Unit.test("Testing odiff", function() {
         this.eq(d.path.length, 0)
         this.eq(d.index, 0)
         this.eq(d.num, 3)
+        this.ok(odiff.equal(d.vals, [1,2,3]))
     })
     this.test('simple array diff - rm multiple contiguous', function() {
         var a = [1,2,3]
@@ -96,6 +97,7 @@ Unit.test("Testing odiff", function() {
         this.eq(d.path.length, 0)
         this.eq(d.index, 1)
         this.eq(d.num, 2)
+        this.ok(odiff.equal(d.vals, [2,3]), d.vals, [2,3])
     })
  
     this.test('simple array diff - add', function() {
@@ -137,6 +139,7 @@ Unit.test("Testing odiff", function() {
         this.eq(d.path.length, 0)
         this.eq(d.index, 3)
         this.eq(d.num, 1)
+        this.ok(odiff.equal(d.vals, [4]))
 
         d = diffs[1]
         this.eq(d.type, 'add')
@@ -193,6 +196,7 @@ Unit.test("Testing odiff", function() {
         this.eq(d.path.length, 0)
         this.eq(d.index, 1)
         this.eq(d.num,1)
+        this.ok(odiff.equal(d.vals, [{a:9,b:8}]))
     })
 
     this.test("complex array diff - change then add", function() {
@@ -288,6 +292,7 @@ Unit.test("Testing odiff", function() {
         this.eq(d.path.length, 0)
         this.eq(d.index, 1)
         this.eq(d.num, 1)
+        this.ok(odiff.equal(d.vals, [{a:3,b:4}]))
     })
 
     this.test("complex array diff - add then change similar", function() {
@@ -320,6 +325,7 @@ Unit.test("Testing odiff", function() {
         this.eq(d.path.length, 0)
         this.eq(d.index, 1)
         this.eq(d.num,1)
+        this.ok(odiff.equal(d.vals, [{a:7,b: 4}]))
 
         d = diffs[1]
         this.eq(d.type, 'set')
