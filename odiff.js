@@ -141,6 +141,8 @@ var diffInternal = function(a,b,acc,base) {
 
 module.exports.similar = similar
 module.exports.equal = equal
+module.exports.applySingle = applySingle
+module.exports.applyAll = applyAll
 
 
 // finds and returns the closest indexes in a and b that match starting with divergenceIndex
@@ -270,6 +272,68 @@ function equal(a,b) {
     } else {
         return a===b || Number.isNaN(a) && Number.isNaN(b)
     }
+}
+
+
+function applySingle(diff,data) {
+    if (!diff || diff.path.length === 0) {
+        return data;
+    }
+    const result = data || (typeof diff.path[0] === 'number' ? [] : {});
+    var cursor = result;
+    // Prepare the cursor
+    var index;
+    var pathLen = diff.path.length;
+    for (index = 0; index < pathLen - 1; index++) {
+        var path = diff.path[index];
+        if (typeof cursor[path] === 'undefined') {
+            cursor[path] = typeof path === 'number' ? [] : {};
+        }
+            cursor = cursor[path];
+    }
+    var lastPath = diff.path[index];
+    // Perform the diff operation
+    switch (diff.type) {
+    case 'set':
+        cursor[lastPath] = diff.val;
+        break;
+    case 'unset':
+        delete cursor[lastPath];
+        break;
+    case 'add': {
+        if (typeof cursor[lastPath] === 'undefined') {
+            cursor[lastPath] = [];
+        }
+        const cursorAsArray = cursor[lastPath];
+        cursor[lastPath] = cursorAsArray
+            .slice(0, diff.index)
+            .concat(diff.vals)
+            .concat(cursorAsArray.slice(diff.index));
+        break;
+    }
+    case 'rm':
+        if (typeof cursor[lastPath] === 'undefined') {
+            cursor[lastPath] = [];
+        } else {
+            cursor[lastPath].splice(
+                diff.index,
+                diff.rm.length,
+            );
+        }
+        break;
+    default:
+        throw new Error(`Unsupported diff operation: ${diff.type}`);
+    }
+    return result;
+}
+
+
+function applyAll(diffs,data) {
+    var result;
+    for (let index = 0; index < diffs.length; index++) {
+        result = applySingle(diffs[index], data);
+    }
+    return result;
 }
 
 
