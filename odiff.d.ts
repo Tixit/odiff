@@ -20,6 +20,7 @@ declare namespace odiff {
     type: 'rm';
     path: Array<string | number>;
     index: number;
+    vals: Array<any>;
     num: number;
   }
   function equal(a: any, b: any): boolean;
