@@ -3,6 +3,10 @@
  "main":"odiff.js",
  "types": "odiff.d.ts",
  "description": "Get a list of differences between one javascript value and another.",
+ "license": {
+   "name": "MIT",
+   "url": "http://www.opensource.org/licenses/mit-license.php"
+ },
  "keywords": [
     "diff", "difference", "change", "changes", "track", "compare", "change-tracking", "patch", "jsonpatch",
     "object", "variable", "value", "json",
