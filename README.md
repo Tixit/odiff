@@ -138,6 +138,7 @@ How to submit pull requests:
 Change Log
 =========
 
+* 1.4.3 - Fixing a bug that caused an incorrect removal index in a particular case.
 * 1.4.1 - Correcting typescript type file.
 * 1.4.0 - Modified the way typescript types are exported.
 * 1.3.0 - Added 'vals' to the 'rm' diff type. Also deprecated 'num'.

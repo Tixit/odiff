@@ -7,6 +7,7 @@ require("../build") // build every you test so you don't forget to update the bu
 
 Unit.test("Testing odiff", function() {
 
+
     //*
 
     this.test("simple value test", function() {
@@ -99,7 +100,7 @@ Unit.test("Testing odiff", function() {
         this.eq(d.num, 2)
         this.ok(odiff.equal(d.vals, [2,3]), d.vals, [2,3])
     })
- 
+
     this.test('simple array diff - add', function() {
         var a = []
         var b = [1,2,3]
@@ -422,6 +423,28 @@ Unit.test("Testing odiff", function() {
             this.eq(d.type, 'set')
             this.ok(odiff.equal(d.path, ['b',1,'x']), d.path, ['b',1,'x'])
             this.eq(d.val, 'z')
+        })
+        this.test('incorrect rm index', function() {
+            const a = [
+              {},
+              {},
+              {a:null},
+              {b:null},
+              {c:null},
+              {}
+            ]
+            const b = [
+              {},
+              {},
+              {a:2},
+              {b:3},
+              {c:4},
+              {}
+            ]
+
+            var d = odiff(a, b)
+
+            this.eq(d[0].index, 2)
         })
     })
 

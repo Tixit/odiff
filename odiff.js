@@ -19,10 +19,14 @@ var diffInternal = function(a,b,acc,base) {
         return;
     } else if(a instanceof Array && b instanceof Array) {
         var an=a.length-1,bn=b.length-1
-        while(an >= 0 && bn >= 0) {     // loop backwards (so that making changes in order will work correctly)
-            if(!equal(a[an], b[bn])) {
+        while(an >= 0 && bn >= 0) {     // Loop backwards (so that making changes in order will work correctly).
+            if(equal(a[an], b[bn])) {
+                an--; bn--;
+            } else {
                 var indexes = findMatchIndexes(equal, a,b, an,bn, 0, 0)
 
+                // Loop backwards from the point at which the lists are not equal and find which elements can be matched
+                // as similar or can be expressed as additions, changes, or removals.
                 var anInner=an,bnInner=bn
                 while(anInner > indexes.a && bnInner > indexes.b) {
                     if(similar(a[anInner], b[bnInner])) {
@@ -61,17 +65,14 @@ var diffInternal = function(a,b,acc,base) {
                         bnInner = indexesInner.b
                     }
                 }
-
                 if(anInner > indexes.a) {        // more to pull
-                    rm(acc, base, anInner, anInner-indexes.a, a)
+                    rm(acc, base, indexes.a+1, anInner-indexes.a, a)
                 } else if(bnInner > indexes.b) { // more to push
                     add(acc, base, anInner+1, b.slice(indexes.b+1, bnInner+1))
                 }
 
                 an = indexes.a
                 bn = indexes.b
-            } else {
-                an--; bn--;
             }
         }
 
@@ -116,15 +117,17 @@ var diffInternal = function(a,b,acc,base) {
         })
     }
 
-    // adds an 'rm' type to the changeList
+    // Adds an 'rm' type to the changeList.
+    // index - The index to remove at.
+    // count - The number of items to remove from that index. The indexes to remove count up from the index.
     function rm(changeList, property, index, count, a) {
-        var finalIndex = index ? index - count + 1 : 0
+        var finalIndex =
         changeList.push({
             type:'rm',
             path: property,
-            index: finalIndex,
+            index: index,
             num: count,
-            vals: a.slice(finalIndex, finalIndex+count)
+            vals: a.slice(index, index + count)
         })
     }
 
@@ -143,10 +146,10 @@ module.exports.similar = similar
 module.exports.equal = equal
 
 
-// finds and returns the closest indexes in a and b that match starting with divergenceIndex
-// note: loops backwards like the rest of this stuff
-// returns the index beyond the first element (aSubMin-1 or bSubMin-1) for each if there is no match
-// parameters:
+// Finds and returns the closest indexes in a and b that match starting with divergenceIndex
+// Note: loops backwards like the rest of this stuff
+// Returns the index beyond the first element (aSubMin-1 or bSubMin-1) for each if there is no match
+// Parameters:
     // compareFn - determines what matches (returns true if the arguments match)
     // a,b - two arrays to compare
     // divergenceIndexA,divergenceIndexB - the two positions of a and b to start comparing from
