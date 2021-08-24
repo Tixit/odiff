@@ -1,7 +1,7 @@
 export as namespace odiff;
 export = odiff;
 
-declare function odiff(A: any, B: any): odiff.odiffResult[];
+declare function odiff(A: any, B: any, allSimilar: boolean): odiff.odiffResult[];
 
 declare namespace odiff {
   export type odiffResult = {
@@ -24,5 +24,5 @@ declare namespace odiff {
     num: number;
   }
   function equal(a: any, b: any): boolean;
-  function similar(a: any, b: any): boolean;
+  function similar(a: any, b: any, allSimilar: boolean): boolean;
 }
