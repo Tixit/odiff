@@ -8,6 +8,8 @@ require("../build") // build every you test so you don't forget to update the bu
 Unit.test("Testing odiff", function() {
 
     
+  
+    
 
     //*
 
@@ -185,6 +187,47 @@ Unit.test("Testing odiff", function() {
         this.eq(d.type, 'set')
         this.ok(odiff.equal(d.path, [ 0 ]), d.path, ['c'])
         this.eq(d.val, bsubitem)
+    })
+  
+    this.test('array to object', function() {
+        var diffs = odiff([], {})
+
+        this.eq(diffs.length, 1)
+
+        var d = diffs[0]
+        this.eq(d.type, 'set')
+        this.ok(odiff.equal(d.path, [ ]), d.path)
+        this.ok(odiff.equal(d.val, {}))
+    })
+    this.test('object to array', function() {
+        var diffs = odiff({}, [])
+
+        this.eq(diffs.length, 1)
+
+        var d = diffs[0]
+        this.eq(d.type, 'set')
+        this.ok(odiff.equal(d.path, [ ]), d.path)
+        this.ok(odiff.equal(d.val, []))
+    })
+    this.test('nested object to array', function() {
+        var diffs = odiff([{}], [[]])
+      
+        this.eq(diffs.length, 1)
+
+        var d = diffs[0]
+        this.eq(d.type, 'set')
+        this.ok(odiff.equal(d.path, [ 0 ]), d.path)
+        this.ok(odiff.equal(d.val, []))
+    })
+    this.test('nested array to object', function() {
+        var diffs = odiff([[]], [{}])
+      
+        this.eq(diffs.length, 1)
+
+        var d = diffs[0]
+        this.eq(d.type, 'set')
+        this.ok(odiff.equal(d.path, [ 0 ]), d.path)
+        this.ok(odiff.equal(d.val, {}))
     })
   
     this.test('complex array diff', function() {

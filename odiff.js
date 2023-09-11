@@ -86,6 +86,8 @@ var diffInternal = function(a,b,acc,base) {
         if(a.getTime() !== b.getTime()) {
             set(acc, base, b)
         }
+    } else if(a instanceof Array && !(b instanceof Array) || b instanceof Array && !(a instanceof Array)) {
+      set(acc, base, b)
     } else if(a instanceof Object && b instanceof Object) {
         var keyMap = merge(arrayToMap(Object.keys(a)), arrayToMap(Object.keys(b)))
         for(var key in keyMap) {
@@ -249,7 +251,7 @@ function equal(a,b) {
             return true
         }
     } else if(a instanceof Object) {
-        if(!(b instanceof Object))
+        if(!(b instanceof Object) || b instanceof Array)
             return false
 
         var aKeys = Object.keys(a)
