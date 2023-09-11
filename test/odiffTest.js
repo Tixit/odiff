@@ -7,6 +7,7 @@ require("../build") // build every you test so you don't forget to update the bu
 
 Unit.test("Testing odiff", function() {
 
+    
 
     //*
 
@@ -148,6 +149,44 @@ Unit.test("Testing odiff", function() {
         this.eq(d.index, 1)
         this.ok(odiff.equal(d.vals, [1.1]), d.vals, [1.1])
     })
+
+    this.test('array diff - similar subitem', function() {
+        var a = [
+          [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        ]
+        var b = [
+          [1, 2, 3, 4, 99, 6, 7, 8, 9, 10]
+        ]
+      
+        var diffs = odiff(a,b)
+      
+        this.eq(diffs.length, 1)
+
+        var d = diffs[0]
+        this.eq(d.type, 'set')
+        this.ok(odiff.equal(d.path, [ 0, 4 ]), d.path, ['c'])
+        this.eq(d.val, 99)
+    })
+  
+    this.test('array diff - dissimilar', function() {
+        var a = [
+          [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+        ]
+        var bsubitem = [10, 20, 30, 40, 5, 6, 70, 80, 90, 100]
+        var b = [
+          bsubitem
+        ]
+      
+        var diffs = odiff(a,b)
+      
+        this.eq(diffs.length, 1)
+
+        var d = diffs[0]
+        this.eq(d.type, 'set')
+        this.ok(odiff.equal(d.path, [ 0 ]), d.path, ['c'])
+        this.eq(d.val, bsubitem)
+    })
+  
     this.test('complex array diff', function() {
         var a = [{a:1,b:2,c:3},              {x:1,y: 2, z:3},              {w:9,q:8,r:7}]
         var b = [{a:1,b:2,c:3},{t:4,y:5,u:6},{x:1,y:'3',z:3},{t:9,y:9,u:9},{w:9,q:8,r:7}]

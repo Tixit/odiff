@@ -193,7 +193,7 @@ function similar(a,b) {
         var tenPercent = a.length/10
         var notEqual = Math.abs(a.length-b.length) // initialize with the length difference
         for(var n=0; n<a.length; n++) {
-            if(equal(a[n],b[n])) {
+            if(!equal(a[n],b[n])) {
                 if(notEqual >= 2 && notEqual > tenPercent || notEqual === a.length) {
                     return false
                 }
